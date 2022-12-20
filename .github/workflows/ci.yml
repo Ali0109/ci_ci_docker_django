@@ -25,10 +25,13 @@ jobs:
       run: |
         flake8
     - name: Coverage report
-      run: |
-        pip install coverage
-        coverage run manage.py test
-        coverage report
+      runs:
+        using: 'docker'
+        container_name: 'ci_cd_docker_django_container'
+        run:
+          pip install coverage
+          coverage run manage.py test
+          coverage report
     - name: Django Testing
       run: |
         python3 manage.py test
